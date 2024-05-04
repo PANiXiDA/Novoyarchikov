@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -16,5 +16,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UsersBL.cs" />
+    <Compile Include="BusesBL.cs" />
+    <Compile Include="CompaniesBL.cs" />
+    <Compile Include="DriverBL.cs" />
+    <Compile Include="RepairOrderBL.cs" />
+    <Compile Include="RoutesBL.cs" />
+    <Compile Include="RouteListBL.cs" />
+    <Compile Include="ScheduleBL.cs" />
+    <Compile Include="StopsBL.cs" />
   </ItemGroup>
 </Project>

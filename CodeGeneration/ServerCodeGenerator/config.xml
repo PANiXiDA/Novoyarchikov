@@ -30,5 +30,21 @@
 				<property dbName="PaymentStatusId" entityName="PaymentStatus" entityType="Common.Enums.PurchasePaymentStatus, Common"/>
 			</properties>
 		</entity>-->
+		<entity name ="Bus">
+		</entity>
+		<entity name ="Company">
+		</entity>
+		<entity name ="Driver">
+		</entity>
+		<entity name ="RepairOrder">
+		</entity>
+		<entity name ="Route">
+		</entity>
+		<entity name ="RouteList">
+		</entity>
+		<entity name ="Schedule">
+		</entity>
+		<entity name ="Stop">
+		</entity>
 	</entities>
 </configuration>

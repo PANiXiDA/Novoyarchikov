@@ -1,0 +1,69 @@
+﻿@model SearchResultViewModel<RepairOrderModel>
+
+@{
+	ViewBag.Title = "RepairOrder";
+	var pagedList = Html.PagedList(Model.PagesInfo.ItemsCount, Model.PagesInfo.ItemsPerPage, Model.PagesInfo.CurrentPage,
+		Model.PagesInfo.DisplayedPages, pageNumber => Url.Action(Url.GetAction(), new
+		{
+			page = pageNumber
+		}), new PagedListExtensions.PagedListRenderParams());
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card mb-3">
+			<div class="card-body">
+				<a asp-action="Update" class="btn btn-outline-primary">Добавить</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		@pagedList
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<tr>
+					<th class="text-center">ID</th>
+                    <th class="text-center">ID автобуса</th>
+                    <th class="text-center">Цена ремонта</th>
+                    <th class="text-center">Дата ремонта</th>
+					<th class="text-center">Действия</th>
+				</tr>
+				@foreach (var item in Model.Objects)
+				{
+					<tr>
+						<td class="text-center">
+							@item.OrderId
+						</td>
+                        <td class="text-center">
+                            @item.BusId
+                        </td>
+                        <td class="text-center">
+                            @item.RepairPrice
+                        </td>
+                        <td class="text-center">
+                            @item.RepairDate
+                        </td>
+						<td class="text-center">
+							<a asp-action="Update" asp-route-id="@item.OrderId">Изменить</a><br />
+							<a asp-action="Delete" asp-route-id="@item.OrderId" class="delete-object-button">Удалить</a>
+						</td>
+					</tr>
+				}
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		@pagedList
+	</div>
+</div>

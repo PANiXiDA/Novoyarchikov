@@ -46,6 +46,46 @@
 								Главная
 							</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Companies" ? "active" : "")" asp-controller="Companies" asp-action="Index">
+								Компании
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Buses" ? "active" : "")" asp-controller="Buses" asp-action="Index">
+								Автобусы
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Stops" ? "active" : "")" asp-controller="Stops" asp-action="Index">
+								Остановки
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Routes" ? "active" : "")" asp-controller="Routes" asp-action="Index">
+								Маршруты
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Schedule" ? "active" : "")" asp-controller="Schedule" asp-action="Index">
+								График
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "Driver" ? "active" : "")" asp-controller="Driver" asp-action="Index">
+								Водитель
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "RouteList" ? "active" : "")" asp-controller="RouteList" asp-action="Index">
+								Маршрутный лист
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(Url.GetController() == "RepairOrder" ? "active" : "")" asp-controller="RepairOrder" asp-action="Index">
+								Ремонт
+							</a>
+						</li>
 						@if (User.Identity.IsAuthenticated)
 						{
 							<li class="nav-item">

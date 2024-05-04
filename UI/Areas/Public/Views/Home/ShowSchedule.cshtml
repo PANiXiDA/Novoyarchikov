@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "ShowSchedule";
+}
+
+@using UI.Areas.Public.Models;
+@model List<ScheduleViewModel>
+
+<head>
+    <title>Расписание</title>
+    <style>
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Расписание</h1>
+    <p>В расписании указаны название остановки, время отправки и прибытия.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название остановки</th>
+                <th>Время отправки</th>
+                <th>Время прибытия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var schedule in Model)
+            {
+                <tr>
+                    <td>@schedule.StopName</td>
+                    <td>@schedule.DepartureTime</td>
+                    <td>@schedule.ArrivalTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

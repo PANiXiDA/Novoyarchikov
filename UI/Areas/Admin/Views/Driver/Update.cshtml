@@ -1,0 +1,45 @@
+﻿@model DriverModel
+
+@{
+	var exists = Model != null && Model.DriverId != 0;
+	ViewBag.Title = (exists ? "Редактирование" : "Создание") + " Driver";
+}
+
+<form asp-action="Update" asp-antiforgery="true" method="post">
+	<div class="row">
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label asp-for="CompanyId"></label>
+				<input type="text" asp-for="CompanyId" class="form-control"/>
+				<span asp-validation-for="CompanyId" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label asp-for="DriverName"></label>
+				<input type="text" asp-for="DriverName" class="form-control"/>
+				<span asp-validation-for="DriverName" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label asp-for="Experience"></label>
+				<input type="text" asp-for="Experience" class="form-control"/>
+				<span asp-validation-for="Experience" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label asp-for="NumberOfAccidents"></label>
+				<input type="text" asp-for="NumberOfAccidents" class="form-control"/>
+				<span asp-validation-for="NumberOfAccidents" class="text-danger"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<button class="btn btn-outline-primary" type="submit">@(exists ? "Сохранить" : "Добавить")</button>
+			<a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+		</div>
+	</div>
+</form>

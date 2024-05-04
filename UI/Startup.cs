@@ -126,7 +126,7 @@ namespace UI
 
 				endpoints.MapControllerRoute(
 					name: "PublicDefaultRoute",
-					pattern: "{controller=Home}/{action=Index}/{id?}", 
+					pattern: "{controller=Home}/{action=Index}/{id?}",
 					new { area = "Public" });
 
 				endpoints.MapControllerRoute(

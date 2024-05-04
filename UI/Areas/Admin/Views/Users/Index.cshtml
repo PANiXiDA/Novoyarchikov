@@ -46,7 +46,10 @@
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Блокировка</th>
 					<th class="text-center">Логин</th>
+                    <th class="text-center">Дата регистрации</th>
 					<th class="text-center">Роль</th>
 					<th class="text-center">Действия</th>
 				</tr>
@@ -54,8 +57,17 @@
 				{
 					<tr>
 						<td class="text-center">
-							@item.Login
+							@item.Id
 						</td>
+                        <td class="text-center">
+                            @item.IsBlocked
+                        </td>
+                        <td class="text-center">
+                            @item.Login
+                        </td>
+                        <td class="text-center">
+                            @item.RegistrationDate
+                        </td>
 						<td class="text-center">
 							@item.Role.GetDisplayName()
 						</td>

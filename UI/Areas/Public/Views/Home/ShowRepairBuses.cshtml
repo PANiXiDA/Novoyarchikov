@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "ShowRepairBuses";
+}
+@using UI.Areas.Public.Models;
+@model List<RepairBusViewModel>
+
+<head>
+    <title>ID, дата ремонта у автомобиля Ford</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ID, дата ремонта у автомобиля Ford</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Дата ремонта</th>
+                <th>Модель</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repairBus in Model)
+            {
+                <tr>
+                    <td>@repairBus.BusID</td>
+                    <td>@repairBus.RepairDate</td>
+                    <td>@repairBus.Model</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

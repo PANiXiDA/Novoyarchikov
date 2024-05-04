@@ -1,0 +1,19 @@
+﻿@using UI.Areas.Public.Models;
+@model RepairViewModel
+
+<h2>Количество автобусов, необходимых к починке: @Model.RepairCount</h2>
+
+@foreach (var bus in Model.BusesForRepair)
+{
+    <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+        <h4>BusID: @bus.BusID</h4>
+        <p>
+            Номер автобуса: @bus.BusNumber <br />
+            CompanyID: @bus.CompanyID <br />
+            Количество сидений: @bus.NumberOfSeats <br />
+            Модель: @bus.Model <br />
+            Дата выпуска: @bus.ReleaseDate
+        </p>
+    </div>
+}
+

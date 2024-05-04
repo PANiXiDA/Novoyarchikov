@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "GetAllCompanies";
+}
+@using UI.Areas.Public.Models;
+@model CompaniesViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Companies</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Companies</h1>
+
+    <h2>Companies:</h2>
+    <table>
+        <tr>
+            <th>Company Name</th>
+            <th>Owner</th>
+        </tr>
+        @foreach (var company in Model.Companies)
+        {
+            <tr>
+                <td>@company.CompanyName</td>
+                <td>@company.Owner</td>
+            </tr>
+        }
+    </table>
+
+    <h2>All Buses</h2>
+    <table>
+        <tr>
+            <th>Bus Number</th>
+            <th>Number of Seats</th>
+            <th>Model</th>
+            <th>Release Date</th>
+        </tr>
+        @foreach (var bus in Model.Buses)
+        {
+            <tr>
+                <td>@bus.BusNumber</td>
+                <td>@bus.NumberOfSeats</td>
+                <td>@bus.Model</td>
+                <td>@bus.ReleaseDate</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

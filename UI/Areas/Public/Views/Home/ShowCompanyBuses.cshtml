@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "ShowCompanyBuses";
+}
+
+@using UI.Areas.Public.Models;
+@model List<CompanyBusViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Buses</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Автобусы компании</h1>
+    <table>
+        <tr>
+            <th>Название компании</th>
+            <th>Владелец компании</th>
+            <th>Номер автобуса</th>
+            <th>Модель автобуса</th>
+            <th>Количество сидений автобуса</th>
+            <th>Дата выпуска автобуса</th>
+            <th>Имя водителя</th>
+            <th>Опыт водителя</th>
+            <th>Количество аварий водителя</th>
+            <th>Дата починки автобуса</th>
+        </tr>
+        @foreach (var bus in Model)
+        {
+            <tr>
+                <td>@bus.CompanyName</td>
+                <td>@bus.CompanyOwner</td>
+                <td>@bus.BusNumber</td>
+                <td>@bus.BusModel</td>
+                <td>@bus.BusNumberOfSeats</td>
+                <td>@bus.BusReleaseDate</td>
+                <td>@bus.DriverName</td>
+                <td>@bus.DriverExperience</td>
+                <td>@bus.DriverNumberOfAccidents</td>
+                <td>@bus.RepairDate</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

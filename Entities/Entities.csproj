@@ -1,10 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Setting2.cs" />
+    <Compile Include="Bus.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="RepairOrder.cs" />
+    <Compile Include="Route.cs" />
+    <Compile Include="RouteList.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="Stop.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="User.cs" />

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -13,6 +13,14 @@
     <Compile Include="Search\UsersSearchParams.cs" />
     <Compile Include="Search\SearchResult.cs" />
     <Compile Include="Configuration\SharedConfiguration.cs" />
+    <Compile Include="Search\BusesSearchParams.cs" />
+    <Compile Include="Search\CompaniesSearchParams.cs" />
+    <Compile Include="Search\DriverSearchParams.cs" />
+    <Compile Include="Search\RepairOrderSearchParams.cs" />
+    <Compile Include="Search\RoutesSearchParams.cs" />
+    <Compile Include="Search\RouteListSearchParams.cs" />
+    <Compile Include="Search\ScheduleSearchParams.cs" />
+    <Compile Include="Search\StopsSearchParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.2.0" />

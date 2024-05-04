@@ -2,4 +2,289 @@
     ViewData["Title"] = "Main page";
 }
 
-<h1>Main page</h1>
+@using UI.Areas.Public.Models;
+@using UI.Areas.Admin.Models;
+@model FullScheduleViewModel
+
+<script>
+    function showRepairDates(element, busId) {
+        var repairDates = [];
+
+        // Получаем данные RepairDate из var repair
+        var repairOrder = Model.repairOrderModel.Objects.find(repair => repair.BusId === busId);
+        if (repairOrder) {
+            repairDates = repairOrder.RepairDates.map(date => date.toString());
+        }
+
+        // Создаем подсказку
+        var tooltip = document.createElement("div");
+        tooltip.classList.add("tooltip");
+        tooltip.textContent = repairDates.join(", ");
+
+        // Позиционируем подсказку
+        var rect = element.getBoundingClientRect();
+        tooltip.style.top = rect.top + "px";
+        tooltip.style.left = (rect.left + rect.width) + "px";
+
+        // Добавляем подсказку в DOM
+        document.body.appendChild(tooltip);
+
+        // Удаляем подсказку при наведении мыши за пределы строки
+        element.addEventListener("mouseout", () => {
+            tooltip.remove();
+        });
+    }
+</script>
+
+<head>
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h1>База данных автобусов</h1>
+</body>
+<style>
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+        .tooltip .tooltip-content {
+            position: absolute;
+            z-index: 999;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            display: none;
+        }
+
+        .tooltip:hover .tooltip-content {
+            display: block;
+        }
+</style>
+
+<table>
+    <tr>
+        <th>Название компании</th>
+        <th>Владелец компании</th>
+        <th>Номер автобуса</th>
+        <th>Модель автобуса</th>
+        <th>Количество сидений в автобусе</th>
+        <th>Дата выпуска автобуса</th>
+        <th>Дата починки автобуса</th>
+        <th>Цена починки автобуса</th>
+        <th>Имя водителя</th>
+        <th>Опыт водителя</th>
+        <th>Количество аварий водителя</th>
+        <th>Дата маршрута</th>
+        <th>Название маршрута</th>
+        <th>Длительность маршрута</th>
+        <th>Время отправки</th>
+        <th>Время прибытия</th>
+        <th>Название остановки</th>
+    </tr>
+    @foreach (var company in Model.companyModel.Objects)
+    {
+        var buses = Model.busModel.Objects.Where(bus => bus.CompanyId == company.CompanyId).ToList();
+        DriverModel driver = null;
+        RouteModel route = null;
+        ScheduleModel schedule = null;
+        StopModel stop = null;
+        foreach (var bus in buses)
+        {
+            var repairOrder = Model.repairOrderModel.Objects.FirstOrDefault(repairOrder => repairOrder.BusId == bus.BusId);
+            var repair = Model.repairOrderModel.Objects.Where(repair => repair.BusId == bus.BusId).ToList();
+            var routeList = Model.routeListModel.Objects.FirstOrDefault(routeList => routeList.BusId == bus.BusId);
+            if (routeList != null)
+            {
+                driver = Model.driverModel.Objects.FirstOrDefault(driver => driver.DriverId == routeList.DriverId);
+                route = Model.routeModel.Objects.FirstOrDefault(route => route.RouteId == routeList.RouteId);
+                if (route != null)
+                {
+                    schedule = Model.scheduleModel.Objects.FirstOrDefault(schedule => schedule.RouteId == route.RouteId);
+                    if (schedule != null)
+                    {
+                        stop = Model.stopModel.Objects.FirstOrDefault(stop => stop.StopId == schedule.StopId);
+                    }
+                }
+            }
+            <tr>
+                <td>@company.CompanyName</td>
+                <td>@company.Owner</td>
+                <td>@bus.BusNumber</td>
+                <td>
+                    <div class="tooltip">
+                        <span>@bus.ModelName</span>
+                        <div class="tooltip-content">
+                            <ul>
+                                @foreach (var r in Model.repairOrderModel.Objects.Where(repair => repair.BusId == bus.BusId).ToList())
+                                {
+                                    <li>
+                                        <b>Дата ремонта:</b> @r.RepairDate
+                                        <b>Цена ремонта:</b> @r.RepairPrice
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td>@bus.NumberOfSeats</td>
+                <td>@bus.ReleaseDate</td>
+                <td>@(repairOrder != null ? repairOrder.RepairDate : "Нет данных")</td>
+                <td>@(repairOrder != null ? repairOrder.RepairPrice : "Нет данных")</td>
+                <td>@(driver != null ? driver.DriverName : "Нет данных")</td>
+                <td>@(driver != null ? driver.Experience : "Нет данных")</td>
+                <td>@(driver != null ? driver.NumberOfAccidents : "Нет данных")</td>
+                <td>@(routeList != null ? routeList.DataRoute : "Нет данных")</td>
+                <td>@(route != null ? route.RouteName : "Нет данных")</td>
+                <td>@(route != null ? route.RouteDuration : "Нет данных")</td>
+                <td>@(schedule != null ? schedule.DepartureTime : "Нет данных")</td>
+                <td>@(schedule != null ? schedule.ArrivalTime : "Нет данных")</td>
+                <td>@(stop != null ? stop.StopName : "Нет данных")</td>
+            </tr>
+            <tr>
+                <td colspan="17" style="text-align: center; padding: 5px;"><hr style="width: 100%;"></td>
+            </tr>
+        }
+    }
+</table>
+<style>
+    .form-section {
+        background-color: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    form {
+        margin-bottom: 10px;
+    }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        form button{
+            margin-bottom: 10px;
+        }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="form-section">
+    <h2>Процедуры:</h2>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="ShowCompanyBuses" method="post">
+        <label for="companyId">Компания:</label>
+        <select id="companyId" name="companyId" required>
+            @foreach (var company in Model.companyModel.Objects)
+            {
+                <option value="@company.CompanyId">@company.CompanyName</option>
+            }
+        </select>
+        <button type="submit">Показать автобусы компании</button>
+    </form>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="SelectBusForRepair" method="post">
+        <label for="busModel">Bus Model:</label>
+        <select id="busModel" name="busModel" required>
+            @foreach (var bus in Model.busModel.Objects.DistinctBy(b => b.ModelName))
+            {
+                <option value="@bus.ModelName">@bus.ModelName</option>
+            }
+        </select>
+        <label for="repairDate">Repair Date:</label>
+        <input type="date" id="repairDate" name="repairDate" required>
+        <button type="submit">Показать автобусы, которым нужен ремонт</button>
+    </form>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="CalculateRepairExpensesForPeriod" method="post">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+        <button type="submit">Показать общие расходы на ремонт за данный период</button>
+    </form>
+
+    @if (TempData["TotalRepairCost"] != null)
+    {
+        <p>Общие расходы на ремонт за период: @TempData["TotalRepairCost"]</p>
+    }
+
+    <form asp-area="Public" asp-controller="Home" asp-action="CalculateRouteListTotalCost" method="post">
+        <label for="SheetID">ID маршрутного листа:</label>
+        <input type="number" id="SheetID" name="SheetID" required />
+        <button type="submit">Рассчитать стоимость ремонта в зависимости от пройденного маршрута</button>
+    </form>
+
+    @if (TempData["repairPrice"] != null)
+    {
+        <p>Общие расходы на ремонт за период: @TempData["repairPrice"]</p>
+    }
+</div>
+
+<div class="form-section">
+    <h2>Представления</h2>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="ShowRepairBuses" method="post">
+        <label for="Ford">Просмотр ID, даты ремонта у автомобиля Ford:</label>
+        <button type="submit">Продолжить</button>
+    </form>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="ShowRoute" method="post">
+        <label for="Route">Просмотр имени водителя и номера автобуса в каждом маршрутном листе:</label>
+        <button type="submit">Продолжить</button>
+    </form>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="ShowSchedule" method="post">
+        <label for="Schedule">Просмотр названии остановки, время отправки и прибытия в расписании:</label>
+        <button type="submit">Продолжить</button>
+    </form>
+
+    <form asp-area="Public" asp-controller="Home" asp-action="ShowBusesUpdate" method="post">
+        <label for="BusesUpdate">Переименовываем компании, у которых количество сидений больше или равняется 30:</label>
+        <button type="submit">Продолжить</button>
+    </form>
+</div>
+
+

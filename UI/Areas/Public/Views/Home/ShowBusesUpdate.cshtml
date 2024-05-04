@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "ShowBusesUpdate";
+}
+
+@using UI.Areas.Public.Models;
+@model List<BusesUpdateViewModel>
+
+<head>
+    <title>Обновленные названия компаний с количеством сидений больше 30</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Количество сидений</th>
+                <th>Название компании</th>
+                <th>Модель</th>
+                <th>Дата выпуска</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var busesUpdate in Model)
+            {
+                <tr>
+                    <td>@busesUpdate.NumberOfSeats</td>
+                    <td>@busesUpdate.CompanyName</td>
+                    <td>@busesUpdate.Model</td>
+                    <td>@busesUpdate.ReleaseDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+
